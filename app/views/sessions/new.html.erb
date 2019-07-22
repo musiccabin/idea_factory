@@ -1,2 +1,14 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Sign In to idea factory</h1>
+
+<%=form_with url: session_path, local:true do |f|%>
+<div>
+    <%=f.label :email%>
+    <%=f.email_field :email%>
+</div>
+<div>
+    <%=f.label :password%>
+    <%=f.password_field :password%>
+</div>
+<%=f.submit 'Submit'%>
+<%end%>
+<%=link_to 'Be an idea factory contributer!', new_user_path%>

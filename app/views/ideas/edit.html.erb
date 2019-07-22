@@ -1,2 +1,20 @@
-<h1>Ideas#edit</h1>
-<p>Find me in app/views/ideas/edit.html.erb</p>
+<h1>Revise your thoughts here...</h1>
+
+<%if @idea.errors.any?%>
+<p>Wait!!</p>
+<%@ideas.errors.full_messages.each do |error|%>
+<p><%=error%></p>
+<%end%>
+<%end%>
+
+<%=form_with model: @idea, local: true do |f|%>
+<div>
+<%=f.label :title%>
+<%=f.text_field :title%>
+</div>
+<div>
+<%=f.label :description%>
+<%=f.text_field :description%>
+</div>
+<%=f.submit 'Send updates to idea factory!'%>
+<%end%>

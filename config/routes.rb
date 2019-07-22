@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
   resource :session, only: [:new, :create, :destroy]
   resources :ideas do
-    resources :reviews, only: [:new, :create, :destroy]
-    resources :likes, only: [:new, :create, :destroy]
+    resources :reviews, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
   end
+
+  get '/', {to: 'ideas#index', as: 'root'}
 end

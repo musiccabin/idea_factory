@@ -1,2 +1,36 @@
-<h1>Ideas#show</h1>
-<p>Find me in app/views/ideas/show.html.erb</p>
+<h1><%=@idea.title%></h1>
+<p><%=@idea.description%></p>
+<% if can?(:like, @idea)%>
+<%like = Like.find_by(idea_id: @idea.id)%>
+<% if @idea&.likers&.include? current_user%>
+<%=link_to 'liked', idea_like_path(@idea, like), method: :delete%>
+<%else%>
+<%=link_to 'Like', idea_likes_path(@idea), method: :post%>
+<%end%>
+<%end%>
+<ul>
+   <li>By: <%=@idea.user.first_name%></li>
+   <li>Likes: <%=@idea.likers.count%></li>
+</ul>
+
+<% if can?(:crud, @idea)%>
+<%=link_to 'Edit', edit_idea_path(@idea)%>
+<%=link_to 'Delete', @idea, method: :delete, data: {confirm: 'forget this idea?'}%>
+<%end%>
+
+<h5>Add Review</h5>
+<%=form_with(model:[@idea, @review], local: true) do |f|%>
+<%=f.text_area(:description, placeholder: 'what are your thoughts?')%>
+<%=f.submit 'Send off your review!'%>
+<%end%>
+
+<%@reviews.each do |review|%>
+<div>
+    <p><%=review.description%></p>
+    <small>By: <%=review.user.first_name%></small>
+    <small><%=time_ago_in_words(review.created_at)%> Ago</small>
+    <% if can?(:crud, review)%>
+    <small><%=link_to 'Delete', idea_review_path(review.idea, review), method: :delete, data: {confirm: 'let it be no more?'}%></small>
+    <%end%>
+</div>
+<%end%>
