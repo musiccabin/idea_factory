@@ -1,2 +1,11 @@
-<h1>Ideas#show</h1>
-<p>Find me in app/views/ideas/show.html.erb</p>
+<h1><%=@idea.title%></h1>
+<p><%=@idea.description%></p>
+<ul>
+   <li>By: <%=@idea.user.first_name%></li>
+   <li>Likes: <%=@idea.likers.count%></li>
+</ul>
+
+<% if can?(:crud, @idea)%>
+<%=link_to 'Edit', edit_idea_path(@idea)%>
+<%=link_to 'Delete', @idea, method: :delete, data: {confirm: 'forget this idea?'}%>
+<%end%>

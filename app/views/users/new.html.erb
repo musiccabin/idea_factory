@@ -1,2 +1,32 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>Contribute to idea factory?</h1>
+
+<% if @user.errors.any?%>
+<p>Wait!!</p>
+<% @user.errors.full_messages.each do |error| %>
+<p><%=error%></p>
+<%end%>
+<%end%>
+
+<%=form_with model: @user, local:true do |f|%>
+<div>
+    <%=f.label :first_name%>
+    <%=f.text_field :first_name%>
+</div>
+<div>
+    <%=f.label :last_name%>
+    <%=f.text_field :last_name%>
+</div>
+<div>
+    <%=f.label :email%>
+    <%=f.email_field :email%>
+</div>
+<div>
+    <%=f.label :password%>
+    <%=f.password_field :password%>
+</div>
+<div>
+    <%=f.label :enter_password_again%>
+    <%=f.password_field :password_confirmation%>
+</div>
+<%=f.submit 'Submit'%>
+<%end%>

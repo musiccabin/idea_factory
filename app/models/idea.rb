@@ -6,5 +6,5 @@ class Idea < ApplicationRecord
   has_many :likers, through: :likes, source: :user
 
   validates :title, presence: true
-  validates :description, precense: true
+  validates :description, presence: true
 end
