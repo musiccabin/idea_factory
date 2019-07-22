@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create, :destroy]
     resources :likes, only: [:new, :create, :destroy]
   end
+
+  get '/', {to: 'ideas#index', as: 'root'}
 end
