@@ -1,7 +1,8 @@
 class IdeasController < ApplicationController
 
   before_action :find_idea, only: [:show, :destroy, :edit, :update]
-  before_action :authenticate_user!, only: [:destroy, :edit, :update]
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authorize, only: [:edit, :update, :destroy]
 
   def new
     @idea = Idea.new
@@ -18,6 +19,9 @@ class IdeasController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @review.idea = @idea
+    @reviews = @idea.reviews.all.order(created_at: :desc)
   end
 
   def index
@@ -50,6 +54,6 @@ class IdeasController < ApplicationController
   end
 
   def authorize
-    redirect_to @idea, alert: 'you can only edit or delete your own ideas' unless can?(:crud, @idea)
+    return redirect_to @idea, alert: 'you can only edit or delete your own ideas' unless can?(:crud, @idea)
   end
 end

@@ -1,21 +1,4 @@
-<h1>Get a fresh idea!!</h1>
-
-<nav>
-    <%=link_to 'Home', root_path%>
-    <% if current_user%>
-    <p>Welcome back, <%=current_user.first_name%>!</p>
-    <%=link_to 'Have an Idea?', new_idea_path%>
-    <%=link_to 'Sign Out', session_path, method: :delete%>
-    <%else%>
-    <%=link_to 'Sign In', new_session_path%>
-    <%end%>
-</nav>
-
-<% flash.each do |type, message| %>
-<div class="flash flash-<%= type %>">
-    <%= message%>
-</div>
-<%end%>
+<h1>Get your mind refreshed!!</h1>
 
 <%@ideas.each do |idea|%>
 <div>

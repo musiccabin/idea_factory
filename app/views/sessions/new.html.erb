@@ -1,10 +1,5 @@
 <h1>Sign In to idea factory</h1>
 
-<div>
-<%flash.each do |type, message|%>
-<p><%=message%></p>
-<%end%>
-
 <%=form_with url: session_path, local:true do |f|%>
 <div>
     <%=f.label :email%>

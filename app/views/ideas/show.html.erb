@@ -9,3 +9,20 @@
 <%=link_to 'Edit', edit_idea_path(@idea)%>
 <%=link_to 'Delete', @idea, method: :delete, data: {confirm: 'forget this idea?'}%>
 <%end%>
+
+<h5>Add Review</h5>
+<%=form_with(model:[@idea, @review], local: true) do |f|%>
+<%=f.text_area(:description, placeholder: 'what are your thoughts?')%>
+<%=f.submit 'Send off your review!'%>
+<%end%>
+
+<%@reviews.each do |review|%>
+<div>
+    <p><%=review.description%></p>
+    <small>By: <%=review.user.first_name%></small>
+    <small><%=time_ago_in_words(review.created_at)%> Ago</small>
+    <% if can?(:crud, review)%>
+    <small><%=link_to 'Delete', idea_review_path(review.idea, review), method: :delete, data: {confirm: 'let it be no more?'}%></small>
+    <%end%>
+</div>
+<%end%>
